@@ -1,2 +1,2 @@
-# Levent-k-a-n-gyzeten
+# Leventek_a_negyzeten
 ki a .............. jani
