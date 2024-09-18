@@ -1,10 +1,10 @@
 function login(){
     let user = {
         email: document.querySelector('#email').value,
-        passwd: document.querySelector('#email').passwd
+        passwd: document.querySelector('#passwd').value
     }
 
-    axios.post(`${serverUrl}/login`, users).then(res => {
+    axios.post(`${serverUrl}/login`, user).then(res => {
         loggedUser = res.data;
         localStorage.setItem('pekseg', JSON.stringify(loggedUser));
         render('recipes')
@@ -16,7 +16,8 @@ function registration(){
         name: document.querySelector('#name').value,
         email: document.querySelector('#email').value,
         passwd: document.querySelector('#passwd').value,
-        confirm: document.querySelector('#confirm').value
+        confirm: document.querySelector('#confirm').value,
+        phone: document.querySelector('#phone').value
     }
 
     axios.post(`${serverUrl}/reg`, newUser).then(res => {

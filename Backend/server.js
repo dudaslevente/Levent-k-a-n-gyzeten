@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/reg', (req, res) => {
 
     // kötelező adatok ellenőrzése
-    if (!req.body.name || !req.body.email || !req.body.passwd || !req.body.confirm ){
+    if (!req.body.name || !req.body.email || !req.body.passwd || !req.body.confirm || !req.body.phone ){
        res.status(203).send('Nem adtál meg minden kötelező adatot!');
        return;
     }
@@ -64,11 +64,11 @@ app.post('/reg', (req, res) => {
         res.status(203).send('Ez az e-mail cím már regisztrálva van!');
         return;
        }
-      
+      console.log(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', 'user', 'engedélyezet', SHA1('${req.body.passwd}'))`);
       // új felhasználó felvétele
-      pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', SHA1('${req.body.passwd}'), 'user')`, (err, results)=>{
+      pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', 'user', 'engedélyezet', SHA1('${req.body.passwd}'))`, (err, results)=>{
         if (err){
-          res.status(500).send('Hiba történt az adatbázis művelet közben!');
+          res.status(500).send('Hiba!');
           return;
          }
          res.status(202).send('Sikeres regisztráció!');
@@ -76,7 +76,6 @@ app.post('/reg', (req, res) => {
       });
       return;
     });
-   
 });
   
   // user belépés
@@ -88,7 +87,7 @@ app.post('/login', (req, res) => {
       return;
     }
   
-    pool.query(`SELECT ID, name, email, role FROM users WHERE email ='${req.body.email}' AND passwd='${CryptoJS.SHA1(req.body.passwd)}'`, (err, results) =>{
+    pool.query(`SELECT ID, name, email, phone FROM users WHERE email ='${req.body.email}' AND passwd='${CryptoJS.SHA1(req.body.passwd)}'`, (err, results) =>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis lekérés közben!');
         return;
@@ -285,6 +284,51 @@ app.delete('/users/:id', logincheck, (req, res) => {
 
   });
 });
+
+function logincheck(req, res, next){
+  let token = req.header('Authorization');
+  
+  if (!token){
+    res.status(400).send('Jelentkezz be!');
+    return;
+  }
+
+  pool.query(`SELECT * FROM users WHERE ID='${token}'`, (err, results) => {
+    if (results.length == 0){
+      res.status(400).send('Hibás authentikáció!');
+      return;
+    } 
+
+    next();
+  });
+
+  return;
+}
+
+// jogosultság ellenőrzése
+function admincheck(req, res, next){
+  let token = req.header('Authorization');
+  
+  if (!token){
+    res.status(400).send('Jelentkezz be!');
+    return;
+  }
+
+  pool.query(`SELECT role FROM users WHERE ID='${token}'`, (err, results) => {
+    if (results.length == 0){
+      res.status(400).send('Hibás authentikáció!');
+      return;
+    } 
+    if (results[0].role != 'admin'){
+      res.status(400).send('Nincs jogosultságod!');
+      return;
+    }
+    next();
+  });
+
+  return;
+} 
+
 /* ÁT KELL IRNI RECEPTER
  
 // összes felhasználó lépésadatainak lekérdezése (CSAK ADMIN)
