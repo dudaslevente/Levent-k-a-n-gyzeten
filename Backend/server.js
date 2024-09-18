@@ -102,28 +102,4 @@ app.post('/login', (req, res) => {
     });
   
 });
-  
-  // bejelentkezett felhasználó adatainak lekérése
-app.get('/me/:id', logincheck, (req, res) => {
-   //TODO: id-t megoldani backenden majd, hogy ne kelljen itt átadni
-    if (!req.params.id) {
-      res.status(203).send('Hiányzó azonosító!');
-      return;
-    }
-  
-    pool.query(`SELECT name, email, role FROM users WHERE ID='${req.params.id}'`, (err, results) =>{ 
-      if (err){
-        res.status(500).send('Hiba történt az adatbázis lekérés közben!');
-        return;
-      }
-  
-      if (results.length == 0){
-        res.status(203).send('Hibás azonosító!');
-        return;
-      }
-  
-      res.status(202).send(results);
-      return;
-  
-    });
-});
+ 
