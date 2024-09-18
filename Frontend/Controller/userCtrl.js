@@ -15,6 +15,7 @@ function registration(){
     let newUser = {
         name: document.querySelector('#name').value,
         email: document.querySelector('#email').value,
+        phone: document.querySelector('#phone').value,
         passwd: document.querySelector('#passwd').value,
         confirm: document.querySelector('#confirm').value
     }

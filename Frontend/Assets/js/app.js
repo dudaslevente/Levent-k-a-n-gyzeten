@@ -22,5 +22,5 @@ if (localStorage.getItem('pekseg')){
     loggedUser = JSON.parse(localStorage.getItem('pekseg'));
     render('recipes');
 }else{
-    render('login');
+    render('recipes');
 }

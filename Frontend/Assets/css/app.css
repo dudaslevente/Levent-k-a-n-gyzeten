@@ -10,3 +10,7 @@ footer{
     letter-spacing: 3px;
     line-height: 60px;
 }
+.nav-item{
+    margin-left: 15%;
+    margin-right: 15%;
+}
