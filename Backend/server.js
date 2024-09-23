@@ -121,7 +121,6 @@ app.get('/me/:id', logincheck, (req, res) => {
  
      res.status(202).send(results);
      return;
- 
    });
 });
 
@@ -282,6 +281,7 @@ app.delete('/users/:id', logincheck, (req, res) => {
 
   });
 });
+
 
 function logincheck(req, res, next){
   let token = req.header('Authorization');

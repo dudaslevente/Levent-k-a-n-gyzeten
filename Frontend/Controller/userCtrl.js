@@ -13,6 +13,7 @@ function login(){
 
         loggedUser = res.data;
         localStorage.setItem('pekseg', JSON.stringify(loggedUser));
+        renderNavItems();
         render('recipes')
     });
 }
@@ -35,5 +36,6 @@ function registration(){
 function logout(){
     localStorage.removeItem('pekseg');
     loggedUser = null;
+    renderNavItems();
     render('login');
 }
