@@ -68,7 +68,7 @@ app.post('/reg', (req, res) => {
       // új felhasználó felvétele
       pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', 'user', 'engedélyezet', SHA1('${req.body.passwd}'))`, (err, results)=>{
         if (err){
-          res.status(500).send('Hiba!');
+          res.status(500).send('Hiba!' + err);
           return;
          }
          res.status(202).send('Sikeres regisztráció!');
@@ -76,7 +76,7 @@ app.post('/reg', (req, res) => {
       });
       return;
     });
-});
+  });
   
   // user belépés
 app.post('/login', (req, res) => {
@@ -305,7 +305,9 @@ function logincheck(req, res, next){
   return;
 }
 
+
 // jogosultság ellenőrzése
+
 function admincheck(req, res, next){
   let token = req.header('Authorization');
   
@@ -327,7 +329,8 @@ function admincheck(req, res, next){
   });
 
   return;
-} 
+}
+
 
 /* ÁT KELL IRNI RECEPTER
  

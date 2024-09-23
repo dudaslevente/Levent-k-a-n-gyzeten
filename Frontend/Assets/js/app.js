@@ -24,3 +24,4 @@ if (localStorage.getItem('pekseg')){
 }else{
     render('recipes');
 }
+
