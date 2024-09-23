@@ -25,3 +25,38 @@ if (localStorage.getItem('pekseg')){
     render('recipes');
 }
 
+function renderNavItems(){
+    let lgdOutNavItems = document.querySelectorAll('.lgdOut');
+    let lgdInNavItems = document.querySelectorAll('.lgdIn');
+    let admNavItems = document.querySelectorAll('.lgdAdm');
+
+    if (loggedUser.role == null){
+        lgdInNavItems.forEach(item =>{
+            item.classList.add('d-none');
+        });
+        lgdOutNavItems.forEach(item => {
+            item.classList.remove('d-none');
+        });
+        admNavItems.forEach(item => {
+            item.classList.add('d-none');
+        });
+        return;
+    }
+
+    if (loggedUser.role == 'admin'){
+        admNavItems.forEach(item => {
+            item.classList.remove('d-none');
+        });
+    }
+
+    if (loggedUser.role == 'user'){
+        lgdInNavItems.forEach(item => {
+            item.classList.remove('d-none');
+        });
+    
+        lgdOutNavItems.forEach(item => {
+            item.classList.add('d-none');
+        });
+    }
+}
+renderNavItems();
