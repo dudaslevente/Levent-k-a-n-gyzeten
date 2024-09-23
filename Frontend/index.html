@@ -10,12 +10,12 @@
 <body>
     <div class="container">
       <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1 ">
-            <p class="link-secondary" href="#">Fifty shades of chicken</p>
+        <div class="row justify-content-between align-items-center">
+          <div class=" col-7 pt-1 ">
+            <p href="#">Fifty shades of chicken</p>
           </div>
           
-          <div class="col-4 d-flex justify-content-end align-items-center">
+          <div class="col-5 justify-content-end ">
             <a class="btn btn-sm btn-outline-secondary m-1 lgdOut" href="#"onclick="render('login')">Login</a>
             <a class="btn btn-sm btn-outline-secondary m-1  lgdOut" href="#"onclick="render('reg')">Sign up</a>
 
@@ -28,29 +28,25 @@
         </div>
       </header>  
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-3 ">
+            <div class="container-fluid  justify-content-center">
               
-              <div class=" " id="navbarNav">
-                <ul class="navbar-nav">
+              <div class="navbar-nav justify-content-center " style="width: 100%; "id="navbarNav">
+                
                   
-                  <li class="nav-item lgdAdm">
-                    <a class="nav-link" href="#" onclick="render('users')">Users</a>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="#" >Összes</a>
                   </li>
-                  <li class="nav-item lgdIn">
-                    <a class="nav-link" href="#" onclick="render('profile')">Profile</a>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="#" >Előétel</a>
                   </li>
-                  <li class="nav-item lgdIn">
-                    <a class="nav-link" href="#"  onclick="render('recipes')">Recipes</a>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="#"  >Főétel</a>
                   </li>
-                  <li class="nav-item lgdIn">
-                    <a class="nav-link" href="#" onclick="render('Statistics') ">Statistics</a>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="#" >Deszert</a>
                   </li>
-
-                  <li class="nav-item lgdIn">
-                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
-                  </li>
-                </ul>
+                
               </div>
             </div>
           </nav>
