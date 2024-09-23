@@ -22,5 +22,11 @@ if (localStorage.getItem('pekseg')){
     loggedUser = JSON.parse(localStorage.getItem('pekseg'));
     render('recipes');
 }else{
+<<<<<<< Updated upstream
     render('recipes');
 }
+=======
+    render('login');
+}
+
+>>>>>>> Stashed changes
