@@ -10,7 +10,20 @@ footer{
     letter-spacing: 3px;
     line-height: 60px;
 }
-.nav-item{
-    margin-left: 20px;
-    margin-right: 20px;
-}
+.navbar-nav {
+    display: flex;
+    flex-wrap: nowrap;  /* Ne törjön sorba kisebb képernyőkön sem */
+    justify-content: center;  /* Középre igazítás */
+    overflow-x: auto;  /* Görgetés engedélyezése, ha nem férnek el */
+  }
+
+  .navbar-nav .nav-item {
+    padding: 0 20px;  /* Távolság a navigációs elemek között */
+  }
+
+  /* Kisebb képernyőkön is egysoros marad */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      overflow-x: auto;  /* Vízszintes görgetés kisebb képernyőkön */
+    }
+  }

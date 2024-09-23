@@ -7,52 +7,49 @@
     <link rel="stylesheet" href="Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="Assets/css/app.css">
 </head>
-<body>
+<body >
     <div class="container">
+      
       <header class="blog-header py-3">
         <div class="row justify-content-between align-items-center">
           <div class="col-6 pt-1">
             <p>Fifty shades of chicken</p>
           </div>
-          
-
-          <div class="col-6 d-flex justify-content-end align-items-end">
+          <div class="col-6 d-flex justify-content-end align-items-end flex-wrap btn-container">
+            <!-- Bejelentkezés nélküli gombok -->
             <a class="btn btn-sm btn-outline-secondary m-1 lgdOut" href="#" onclick="render('login')">Login</a>
             <a class="btn btn-sm btn-outline-secondary m-1 lgdOut" href="#" onclick="render('reg')">Sign up</a>
-      
-            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn" visible="false" href="#" onclick="render('profile')">Profile</a>
-            <a class="btn btn-sm btn-outline-secondary m-1 lgdAdm" href="#" onclick="render('users')">Users</a>
-            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn" href="#" onclick="render('upload')">Upload</a>
-            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn" href="#" onclick="render('Statistics')">Statistics</a>
-            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn" href="#" onclick="logout()">Logout</a>
-
+          
+            <!-- Bejelentkezett felhasználó (user/admin) gombjai -->
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('profile')">Profile</a>
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdAdm d-none" href="#" onclick="render('users')">Users</a>
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('upload')">Upload</a>
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('Statistics')">Statistics</a>
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="logout()">Logout</a>
           </div>
+          
         </div>
       </header>
       
-
-        <nav class="navbar navbar-expand-lg bg-body-tertiary p-3 ">
-            <div class="container-fluid  justify-content-center">
-              
-              <div class="navbar-nav justify-content-center " style="width: 100%; "id="navbarNav">
-                
-                  
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#"onclick="render('recipes')" >Összes</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#" >Előétel</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#"  >Főétel</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#" >Deszert</a>
-                  </li>
-                
-              </div>
-            </div>
-          </nav>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
+        <div class="container-fluid justify-content-center">
+          <ul class="navbar-nav d-flex flex-row flex-nowrap">
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="render('recipes')">Összes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Előétel</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Főétel</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Deszert</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
 
           <main>
 
