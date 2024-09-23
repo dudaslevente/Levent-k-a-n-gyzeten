@@ -67,6 +67,7 @@ app.post('/reg', (req, res) => {
       console.log(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', 'user', 'engedélyezet', SHA1('${req.body.passwd}'))`);
       // új felhasználó felvétele
       pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', 'user', 'engedélyezet', SHA1('${req.body.passwd}'))`, (err, results)=>{
+      pool.query(`INSERT INTO users VALUES('${uuid.v4()}', '${req.body.name}', '${req.body.email}', '${req.body.phone}', '${req.body.role}', '${req.body.status}', SHA1('${req.body.passwd}',) 'user')`, (err, results)=>{
         if (err){
           res.status(500).send('Hiba!');
           return;
