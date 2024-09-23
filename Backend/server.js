@@ -79,7 +79,7 @@ app.post('/reg', (req, res) => {
   });
   
   // user belépés
-app.post('/login', (req, res) => {
+  app.post('/login', (req, res) => {
   
     //console.log(req.body);
     if (!req.body.email || !req.body.passwd) {
@@ -87,7 +87,7 @@ app.post('/login', (req, res) => {
       return;
     }
   
-    pool.query(`SELECT ID, name, email, phone FROM users WHERE email ='${req.body.email}' AND passwd='${CryptoJS.SHA1(req.body.passwd)}'`, (err, results) =>{
+    pool.query(`SELECT ID, name, email, phone, role, status FROM users WHERE email ='${req.body.email}' AND passwd='${CryptoJS.SHA1(req.body.passwd)}'`, (err, results) =>{
       if (err){
         res.status(500).send('Hiba történt az adatbázis lekérés közben!');
         return;
@@ -99,12 +99,10 @@ app.post('/login', (req, res) => {
       res.status(202).send(results);
       return;
     });
-  
 });
 
 // bejelentkezett felhasználó adatainak lekérése
 app.get('/me/:id', logincheck, (req, res) => {
-  //TODO: id-t megoldani backenden majd, hogy ne kelljen itt átadni
    if (!req.params.id) {
      res.status(203).send('Hiányzó azonosító!');
      return;

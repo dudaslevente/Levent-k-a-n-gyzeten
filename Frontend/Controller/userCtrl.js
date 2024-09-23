@@ -5,6 +5,12 @@ function login(){
     }
 
     axios.post(`${serverUrl}/login`, user).then(res => {
+
+        if (res.status != 202){
+            alert(res.data);
+            return;
+        }
+
         loggedUser = res.data;
         localStorage.setItem('pekseg', JSON.stringify(loggedUser));
         render('recipes')
@@ -18,11 +24,11 @@ function registration(){
         phone: document.querySelector('#phone').value,
         passwd: document.querySelector('#passwd').value,
         confirm: document.querySelector('#confirm').value,
-        phone: document.querySelector('#phone').value
     }
 
     axios.post(`${serverUrl}/reg`, newUser).then(res => {
         alert(res.data);
+        render('login');
     });
 }
 
