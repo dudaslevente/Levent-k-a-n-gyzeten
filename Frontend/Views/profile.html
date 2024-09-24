@@ -1,5 +1,6 @@
 <div class="p-3">
     <h3>My profile</h3>
+    <hr>
     <div class="form-floating mb-3">
         <input type="text" class="form-control" id="name" placeholder="Name">
         <label for="name">Name</label>
@@ -9,8 +10,12 @@
         <label for="email">E-mail address</label>
     </div>
     <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="phone" placeholder="Phone">
+        <label for="phone">Phone number</label>
+    </div>
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="role" placeholder="Role" disabled>
         <label for="role">Role</label>
     </div>
-    <button class="btn btn-warning mb-3">Update</button>
+    <button class="btn btn-warning mb-3" onclick="updateProfile()">Update</button>
 </div>

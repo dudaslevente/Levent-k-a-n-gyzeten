@@ -39,3 +39,25 @@ function logout(){
     renderNavItems();
     render('login');
 }
+
+function getMe(){
+    axios.get(`${serverUrl}/me/${loggedUser[0].ID}`).then(res => {
+        document.querySelector('#name').value = res.data[0].name;
+        document.querySelector('#email').value = res.data[0].email;
+        document.querySelector('#phone').value = res.data[0].phone;
+        document.querySelector('#role').value = res.data[0].role;
+    });
+}
+
+function updateProfile(){
+    let data = {
+        name: document.querySelector('#name').value,
+        email: document.querySelector('#email').value,
+        phone: document.querySelector('#phone').value,
+        role: document.querySelector('#role').value
+    }
+
+    axios.patch(`${serverUrl}/users/${loggedUser[0].ID}`, data).then(res => {
+        alert(res.data);
+    });
+}
