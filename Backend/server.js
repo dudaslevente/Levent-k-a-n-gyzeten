@@ -152,6 +152,7 @@ app.patch('/users/:id', (req, res) => {
   });
 });
 
+/*
 // jelszó módosítás
 app.patch('/passmod/:id', logincheck, (req, res) => {
   
@@ -212,13 +213,12 @@ app.patch('/passmod/:id', logincheck, (req, res) => {
   });
 
 });
+*/
 
 // felhasználók listája (CSAK ADMIN)
-app.get('/users', admincheck, (req, res) => {
+app.get('/users', (req, res) => {
 
-  //TODO: csak admin joggal lehet - később
-
-  pool.query(`SELECT ID, name, email, role FROM users`, (err, results) => {
+  pool.query(`SELECT ID, name, email, phone, role FROM users`, (err, results) => {
     if (err){
       res.status(500).send('Hiba történt az adatbázis lekérés közben!');
       return;
@@ -228,15 +228,16 @@ app.get('/users', admincheck, (req, res) => {
   });
 });
 
+
 // felhasználó adatainak lekérése id alapján (CSAK ADMIN)
-app.get('/users/:id', logincheck, (req, res) => {
+app.get('/users/:id', (req, res) => {
 
   if (!req.params.id) {
      res.status(203).send('Hiányzó azonosító!');
      return;
    }
  
-   pool.query(`SELECT name, email, role FROM users WHERE ID='${req.params.id}'`, (err, results) =>{ 
+   pool.query(`SELECT name, email, phone, role FROM users WHERE ID='${req.params.id}'`, (err, results) =>{ 
      if (err){
        res.status(500).send('Hiba történt az adatbázis lekérés közben!');
        return;
@@ -254,7 +255,7 @@ app.get('/users/:id', logincheck, (req, res) => {
  });
  
 // felhasználó törlése id alapján (CSAK ADMIN)
-app.delete('/users/:id', logincheck, (req, res) => {
+app.delete('/users/:id', (req, res) => {
   
   if (!req.params.id) {
     res.status(203).send('Hiányzó azonosító!');
@@ -299,9 +300,6 @@ function logincheck(req, res, next){
 
   return;
 }
-
-
-// jogosultság ellenőrzése
 
 function admincheck(req, res, next){
   let token = req.header('Authorization');
@@ -422,9 +420,6 @@ app.post('/steps/:userID', logincheck, (req, res) => {
 
 });
 */
-
-
-
 
 
 app.listen(port, () => {

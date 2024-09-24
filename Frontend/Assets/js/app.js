@@ -18,6 +18,10 @@ async function render(view){
             getMe();
             break;
         }
+        case 'users': {
+            getUsers();
+            break;
+        }
     }
 }
 
