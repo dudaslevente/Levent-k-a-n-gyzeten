@@ -10,15 +10,21 @@
         <label for="leiras">Recept elkészítésének leírása</label>
     </div>
     <br>
-    <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="ido" placeholder="Elkészítési idő">
-        <label for="ido">Elkészítési idő</label>
-    </div>
-    <div class="input-group mb-3">
-        <input type="file" class="form-control" id="inputGroupFile02">
-        <label class="input-group-text" for="inputGroupFile02">Upload</label>
-    </div>
-         
+    
+    <form class="row">
+        <div class="form-floating col-md-6">
+            <input type="number" class="form-control" id="ido" placeholder="Elkészítési idő">
+            <label for="ido">Elkészítési idő</label>
+        </div>
+        <div class="btn-group col-md-6">  
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 60px; text-align: start;">Kategória választás</button>
+            <ul class="dropdown-menu">    
+                <li><a class="dropdown-item" href="#">Előétel</a></li>    
+                <li><a class="dropdown-item" href="#">Főétel</a></li>    
+                <li><a class="dropdown-item" href="#">Deszert</a></li>  
+            </ul>
+        </div>
+      </form>
     <br>
     <button class="btn btn-primary mb-3">Felvétel</button>
 </div>
