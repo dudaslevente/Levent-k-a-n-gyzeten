@@ -27,3 +27,7 @@ footer{
       overflow-x: auto;  /* Vízszintes görgetés kisebb képernyőkön */
     }
   }
+
+body{
+  min-width:500px;
+}

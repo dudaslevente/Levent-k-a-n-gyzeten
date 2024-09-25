@@ -2,29 +2,38 @@
     <h3>Receptek felvétele</h3>
     <hr>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="recName" placeholder="Recept neve">
-        <label for="recName">Recept neve</label>
+        <input type="text" class="form-control" id="title" placeholder="Recept neve">
+        <label for="title">Recept neve</label>
     </div>
     <div class="form-floating">
-        <textarea class="form-control" placeholder="Recept elkészítésének leírása" id="leiras" style="height: 100px"></textarea>
-        <label for="leiras">Recept elkészítésének leírása</label>
+        <textarea class="form-control" placeholder="Recept elkészítésének leírása" id="description" style="height: 100px"></textarea>
+        <label for="description">Recept elkészítésének leírása</label>
     </div>
     <br>
     
     <form class="row">
-        <div class="form-floating col-md-6">
-            <input type="number" class="form-control" id="ido" placeholder="Elkészítési idő">
-            <label for="ido">Elkészítési idő</label>
+        <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="time" style="margin-top: 10px;" placeholder="Elkészítési idő">
+            <label for="time" style="margin-left: 10px; margin-top: 10px;">Elkészítési idő</label>
         </div>
-        <div class="btn-group col-md-6">  
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 60px; text-align: start;">Kategória választás</button>
-            <ul class="dropdown-menu">    
-                <li><a class="dropdown-item" href="#">Előétel</a></li>    
-                <li><a class="dropdown-item" href="#">Főétel</a></li>    
-                <li><a class="dropdown-item" href="#">Deszert</a></li>  
-            </ul>
+        <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="calory" style="margin-top: 10px;" placeholder="Kalória">
+            <label for="calory" style="margin-left: 10px; margin-top: 10px;">Kalória</label>
         </div>
-      </form>
+        <div class="btn-group col-md-4">  
+            <select class="form-select" id="categories" aria-label="Default select example" style="height: 60px; margin-top: 10px;">
+                <option value="1">Előétel</option>
+                <option value="2">Főétel</option>
+                <option value="3">Deszert</option>
+            </select>
+        </div>
+        
+    </form>
     <br>
-    <button class="btn btn-primary mb-3">Felvétel</button>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Hozzávalók" id="additions" style="height: 100px"></textarea>
+        <label for="additions">Hozzávalók a recept elkészítéséhez</label>
+    </div>
+    <br>
+    <button class="btn btn-primary mb-3" onclick="uploadRec()">Felvétel</button>
 </div>
