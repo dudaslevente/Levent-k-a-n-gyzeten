@@ -355,51 +355,26 @@ app.get('/steps', logincheck, (req, res) => {
 
   });
 
-});
-/* ÁT KELL IRNI RECEPTER
+});*/
+//ÁT KELL IRNI RECEPTER
 // felhasználó lépésadatainak lekérdezése
-app.get('/steps/:userID', logincheck, (req, res) => {
-  if (!req.params.userID) {
-    res.status(203).send('Hiányzó azonosító!');
-    return;
-  }
 
-  pool.query(`SELECT * FROM stepdatas WHERE userID='${req.params.userID}'`, (err, results) => {
-    if (err){
-      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
-      return;
-    }
-
-    res.status(200).send(results);
-    return;
-
-  });
-
-});
 
 // felhasználó lépésadatainak felvitele
-app.post('/steps/:userID', logincheck, (req, res) => {
+app.post('/description/:userID', logincheck, (req, res) => {
 
   if (!req.params.userID) {
     res.status(203).send('Hiányzó azonosító!');
     return;
   }
-
+/*
   if (!req.body.date || !req.body.stepcount) {
     res.status(203).send('Hiányzó adatok!');
     return;
   }
+*/
 
-  let today = moment().format('YYYY-MM-DD');
-  let date = moment(req.body.date).format('YYYY-MM-DD');
-
-  // string-ként összehasonlítjuk a két dátumot
-  if (date.localeCompare(today) > 0){
-    res.status(203).send('A dátum nem lehet jövőbeli!');
-    return;
-  }
-
-  pool.query(`SELECT ID FROM stepdatas WHERE userID='${req.params.userID}' AND date='${date}'`, (err ,results) => {
+  pool.query(`SELECT ID FROM recepies WHERE userID='${req.params.userID}' AND date='${date}'`, (err ,results) => {
     if (err){
       res.status(500).send('Hiba történt az adatbázis művelet közben!');
       return;
@@ -433,7 +408,6 @@ app.post('/steps/:userID', logincheck, (req, res) => {
   });
 
 });
-*/
 
 
 app.listen(port, () => {
