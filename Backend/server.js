@@ -152,6 +152,20 @@ app.patch('/users/:id', (req, res) => {
   });
 });
 
+//receptek lekérése
+
+app.get('/recipes', (req, res) =>{
+  pool.query(`SELECT catID, userID, title, description,time, additions, calory FROM recipes`, (err, results) =>{
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+ 
+    res.status(200).send(results);
+    return;
+  });
+});
+
 /*
 // jelszó módosítás
 app.patch('/passmod/:id', logincheck, (req, res) => {
