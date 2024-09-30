@@ -38,7 +38,7 @@ function createRecipeCards(recipes) {
         title.innerText = recipe.title;
 
         const time = document.createElement('p');
-        time.innerText = `IDŐ: ${recipe.time}`;
+        time.innerText = `idő: ${recipe.time} perc`;
 
         // Create detail button
         const button = document.createElement('a');
@@ -63,16 +63,26 @@ function createRecipeCards(recipes) {
     });
 }
 
-function fetchRecipes() {
-    axios.get(`${serverUrl}/recipes`)
+function fetchRecipes(category) {
+    let url;
+
+    if (category === 'all') {
+        url = `${serverUrl}/recipes`; // Endpoint to get all recipes
+    } else {
+        url = `${serverUrl}/recipes?catID=${category}`; // Endpoint to get recipes by category
+    }
+    console.log(url);
+    axios.get(url)
         .then(res => {
-            console.log(res.data);
-            createRecipeCards(res.data);
+            console.log(res.data); // Log the response for debugging
+            createRecipeCards(res.data); // Create cards for the fetched recipes
         })
         .catch(error => {
-            console.error("Error fetching recipes:", error);
+            console.error("Error fetching recipes:", error); // Log any errors
         });
 }
 
-// Call the fetchRecipes function to fetch and display the recipes
-fetchRecipes();
+// Call fetchRecipes initially to load all recipes
+fetchRecipes('all');
+
+
