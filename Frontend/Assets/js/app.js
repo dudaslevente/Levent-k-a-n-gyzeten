@@ -22,6 +22,11 @@ async function render(view){
             getUsers();
             break;
         }
+        case 'statistics': {
+            getUserStats();
+            getAdminStats();
+            break;
+        }
     }
 }
 

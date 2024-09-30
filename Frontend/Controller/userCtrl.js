@@ -153,3 +153,71 @@ function renderUsers(users){
     let total = document.querySelector('strong');
     total.innerHTML = users.length;
 }
+
+function getUserStats(){
+    axios.get(`${serverUrl}/recipes/${loggedUser[0].ID}`, authorize()).then(res => {
+        recipes = res.data;
+    });
+
+    let totalValue = 0;
+    let mostCalory = 0;
+    let leastCalory = 0;
+
+
+    recipes.forEach(item => {
+        totalValue += item.count;
+        if (item.count > mostCalory){
+            mostCalory = item.count;
+        }
+        if (item.count < leastCalory){
+            leastCalory = item.count;
+        }
+    });
+
+    document.querySelector('#total').innerHTML = totalValue;
+    document.querySelector('#most').innerHTML = mostCalory;
+    document.querySelector('#least').innerHTML = leastCalory;
+}
+
+function getAdminStats(){
+    let alldata = [];
+    axios.get(`${serverUrl}/recipes`, authorize()).then(res => {
+        alldata = res.data;
+        alldata.sort((a, b) => a.userID.localeCompare(b.userID)); 
+
+        let totalValue = 0;
+        let userCount = 0;
+
+        let userTotal = 0;
+        let userDataCount = 0;
+        let maxValue = 0;
+        let userID = alldata[0].userID;
+
+        alldata.forEach(item => {
+
+            if (userID != item.userID){
+                console.log(userTotal)
+                userID = item.userID;
+                userTotal = 0;
+                userDataCount = 0;
+                userCount++;
+            }
+
+            totalValue += item.count;
+
+            userTotal += item.count;
+            userDataCount++;
+
+            if (item.count > maxValue){
+                maxValue = item.count;
+            }
+            if (item.count < minValue){
+                minValue = item.count;
+            }
+            
+        });
+
+        document.querySelector('#adm_total').innerHTML = totalValue;
+        document.querySelector('#adm_max').innerHTML = maxValue;
+    });
+}

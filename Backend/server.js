@@ -279,13 +279,10 @@ function admincheck(req, res, next){
   return;
 }
 
-
-/* ÁT KELL IRNI RECEPTER
- 
 // összes felhasználó lépésadatainak lekérdezése (CSAK ADMIN)
-app.get('/steps', logincheck, (req, res) => {
+app.get('/recipes', logincheck, (req, res) => {
   
-  pool.query(`SELECT * FROM stepdatas`, (err, results) => {
+  pool.query(`SELECT * FROM recipes`, (err, results) => {
     if (err){
       res.status(500).send('Hiba történt az adatbázis lekérés közben!');
       return;
@@ -293,13 +290,26 @@ app.get('/steps', logincheck, (req, res) => {
 
     res.status(200).send(results);
     return;
-
   });
+});
 
-});*/
-//ÁT KELL IRNI RECEPTER
 // felhasználó lépésadatainak lekérdezése
+app.get('/recipes/:userID', logincheck, (req, res) => {
+  if (!req.params.userID) {
+    res.status(203).send('Hiányzó azonosító!');
+    return;
+  }
 
+  pool.query(`SELECT * FROM recipes WHERE userID='${req.params.userID}'`, (err, results) => {
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+
+    res.status(200).send(results);
+    return;
+  });
+});
 
 // felhasználó lépésadatainak felvitele
 app.post('/description/:userID', logincheck, (req, res) => {
