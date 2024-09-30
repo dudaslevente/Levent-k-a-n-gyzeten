@@ -126,3 +126,27 @@ function getRecipes() {
         }
     });
 }*/
+
+let card = document.querySelector('card');
+    card.innerHTML = '';
+
+users.forEach(user => {
+    let cardbody = document.createElement('card-body');
+    let title = document.createElement('card-title');
+    let description = document.createElement('card-text');
+
+    title.innerHTML = user.title;
+    description.innerHTML = user.description;
+        
+    if (user.ID != loggedUser[0].ID){
+        let btn1 = document.createElement('button');
+        btn1.innerHTML = 'Recipe';
+        btn1.classList.add('btn','btn-primary', 'btn-sm', 'me-2');
+        cardbody.appendChild(btn1);
+    }
+
+    cardbody.appendChild(title);
+    cardbody.appendChild(description);
+
+    card.appendChild(cardbody);
+});
