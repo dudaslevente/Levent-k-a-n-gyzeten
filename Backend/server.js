@@ -351,6 +351,18 @@ app.post('/description/:userID', logincheck, (req, res) => {
 });
 
 
+// Recepteket lekérdező végpont
+app.get('/recipes', (req, res) => {
+  pool.query('SELECT * FROM recipes', (err, results) => {
+      if (err) {
+          res.status(500).send('Hiba történt az adatbázis lekérése közben!');
+          return;
+      }
+      res.status(200).json(results); // Visszaadjuk a recepteket JSON formátumban
+  });
+});
+
+
 app.listen(port, () => {
   //console.log(process.env) ;
   console.log(`Server listening on port ${port}...`);

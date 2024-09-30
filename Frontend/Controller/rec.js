@@ -1,152 +1,78 @@
-function getTitle(recepies) {
-    
-        let cim = document.getElementById('#cim');
-        recepies.forEach(recept => {
-            let h1 =document.createElement('h1');
-            h1.innerHTML = recept.title;
-            cim.appendChild(h1);
-        });
-        
-        
-}/*
- 
-function getRecipes() {
-    let tartalom = document.querySelector('.tartalom');
- 
-    axios.get(`${serverUrl}/recipes`).then(res => {
-        console.log(res.data);
- 
-        for (let i = 0; i < res.data.length; i++) {
-            let recipeCard = document.createElement('div');
-            recipeCard.id = `card${i}`;
-            recipeCard.classList.add(
-               
-                'flex',
-                'flex-row',
-                'justify-center',
-                'items-stretch',
-                'h-full',
-                'w-3/4',
-                'bg-stone-400',
-                'rounded-[15px]',
-                'drop-shadow-lg',
-                'overflow-hidden',
-                'recipe'
-            );
- 
-            const Content = document.createElement('div');
-            Content.classList.add(
-                'w-1/2',
-                'flex',
-                'flex-col',
-                'justify-start',
-                'items-center',
-                'h-full',
-                'text-xl',
-                'text-stone-700',
-                'cimClass'
-               
-            );
- 
-            const Title = document.createElement('h3');
-            Title.id = `title${i}`;
-            Title.innerHTML = res.data[i].title;
-            Title.classList.add(
-                'bg-stone-500',
-                'w-full',
-                'rounded-tr-[15px]',
-                'text-center',
-                'p-5',
-                'text-stone-100',
-                'text-2xl',
-                'cimClass'
-            );
- 
-            const desc = document.createElement('p');
-            desc.id = `desc${i}`;
-            desc.innerHTML = res.data[i].description;
-            desc.classList.add('text-stone-600', 'text-justified', "w-full");
- 
-            const time = document.createElement('p');
-            time.id = `time${i}`;
-            time.innerHTML ="Idő: " + res.data[i].time + " perc";
- 
-            const additions = document.createElement('ul');
-            additions.id = `additions${i}`;
- 
-            const additionsArray = res.data[i].additions.split(',');
- 
-            additionsArray.forEach(addition => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `- ${addition.trim()}`;
-                additions.appendChild(listItem);
-            });
- 
-            const calory = document.createElement('p');
-            calory.id = `calory${i}`;
-            calory.innerHTML = res.data[i].calory + " Kcal";
- 
-            const kep = document.createElement('div');
-            kep.classList.add('kep', 'relative', 'w-1/2', 'h-full', 'rounded-l-[15px]','self-center');
- 
-            const descContainer = document.createElement('div');
-            descContainer.classList.add(
-                'flex',
-                'flex-col',
-                'justify-evenly',
-                'content-center',
-                'items-center',
-                'w-full',
-                'h-auto',
-                'px-5',
-                'text-xl',
-                'text-stone-700',
-                'py-5',
-                'gap-5'
-            );
- 
-            let hozzavalok = document.createElement('h3');
-            hozzavalok.innerHTML = 'Hozzávalók:'
-            let leiras = document.createElement('h3');
-            leiras.innerHTML = 'Leírás:'
-            descContainer.appendChild(hozzavalok)
-            descContainer.appendChild(additions);
-            descContainer.appendChild(leiras)
-            descContainer.appendChild(desc);
-            descContainer.appendChild(time);
-            descContainer.appendChild(calory);
- 
-            Content.appendChild(Title);
-            Content.appendChild(descContainer);
- 
-            recipeCard.appendChild(kep);
-            recipeCard.appendChild(Content);
- 
-            tartalom.appendChild(recipeCard);
-        }
-    });
-}*/
+function createRecipeCards(recipes) {
+    const cardContainer = document.querySelector('.card-container');
 
-let card = document.querySelector('card');
-    card.innerHTML = '';
-
-users.forEach(user => {
-    let cardbody = document.createElement('card-body');
-    let title = document.createElement('card-title');
-    let description = document.createElement('card-text');
-
-    title.innerHTML = user.title;
-    description.innerHTML = user.description;
-        
-    if (user.ID != loggedUser[0].ID){
-        let btn1 = document.createElement('button');
-        btn1.innerHTML = 'Recipe';
-        btn1.classList.add('btn','btn-primary', 'btn-sm', 'me-2');
-        cardbody.appendChild(btn1);
+    if (!cardContainer) {
+        console.error("A .card-container elem nem található!"); // Hibaüzenet a konzolon
+        return;
     }
 
-    cardbody.appendChild(title);
-    cardbody.appendChild(description);
+    // Clear the container before appending new cards
+    cardContainer.innerHTML = '';
 
-    card.appendChild(cardbody);
-});
+    // Define image map for categories
+    const imageMap = {
+        '1': '/Frontend/Assets/kepek/eloetel.jpg', // Előétel
+        '2': '/Frontend/Assets/kepek/foetel.jpg', // Főétel
+        '3': '/Frontend/Assets/kepek/desszert.jpg' // Desszert
+    };
+
+    // Loop through each recipe and create cards
+    recipes.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'card mb-3'; // Bootstrap osztályok
+        card.style.width = '300px';
+        card.style.margin = '10px';
+
+        // Create the image element
+        const img = document.createElement('img');
+        img.className = 'card-img-top';
+        img.src = imageMap[recipe.catID] || '/Frontend/Assets/kepek/food.jpg'; // Default image
+        img.alt = recipe.title;
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        // Create title and time elements
+        const title = document.createElement('h5');
+        title.className = 'card-title';
+        title.innerText = recipe.title;
+
+        const time = document.createElement('p');
+        time.innerText = `IDŐ: ${recipe.time}`;
+
+        // Create detail button
+        const button = document.createElement('a');
+        button.href = '#';
+        button.className = 'btn btn-primary';
+        button.innerText = 'Részletes Leírás';
+        button.onclick = function () {
+            render(recipe.title); // Pass the title to render function
+        };
+
+        // Append all elements to the card body
+        cardBody.appendChild(title);
+        cardBody.appendChild(time);
+        cardBody.appendChild(button);
+
+        // Append image and card body to the card
+        card.appendChild(img);
+        card.appendChild(cardBody);
+
+        // Append the card to the container
+        cardContainer.appendChild(card);
+    });
+}
+
+function fetchRecipes() {
+    axios.get(`${serverUrl}/recipes`)
+        .then(res => {
+            console.log(res.data);
+            createRecipeCards(res.data);
+        })
+        .catch(error => {
+            console.error("Error fetching recipes:", error);
+        });
+}
+
+// Call the fetchRecipes function to fetch and display the recipes
+fetchRecipes();
