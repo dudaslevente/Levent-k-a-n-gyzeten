@@ -41,7 +41,7 @@ function logout(){
 }
 
 function getMe(){
-    axios.get(`${serverUrl}/me/${loggedUser[0].ID}`).then(res => {
+    axios.get(`${serverUrl}/me/${loggedUser[0].ID}`, authorize()).then(res => {
         document.querySelector('#name').value = res.data[0].name;
         document.querySelector('#email').value = res.data[0].email;
         document.querySelector('#phone').value = res.data[0].phone;
@@ -57,20 +57,20 @@ function updateProfile(){
         role: document.querySelector('#role').value
     }
 
-    axios.patch(`${serverUrl}/users/${loggedUser[0].ID}`, data).then(res => {
+    axios.patch(`${serverUrl}/users/${loggedUser[0].ID}`, data, authorize()).then(res => {
         alert(res.data);
     });
 }
 
 function getUsers(){
-    axios.get(`${serverUrl}/users`).then(res => {
+    axios.get(`${serverUrl}/users`, authorize()).then(res => {
         renderUsers(res.data);
     });
 }
 
 function deleteUser(id){
     if (confirm('Are you sure to delete this user?')){
-        axios.delete(`${serverUrl}/users/${id}`).then(res => {
+        axios.delete(`${serverUrl}/users/${id}`, authorize()).then(res => {
             alert(res.data);
             if (res.status == 200){
                 getUsers();
@@ -86,7 +86,7 @@ function updateUser(id){
         phone: document.querySelector('#phone').value,
         role: document.querySelector('#role').value
     }
-    axios.patch(`${serverUrl}/users/${id}`, data).then(res => {
+    axios.patch(`${serverUrl}/users/${id}`, data, authorize()).then(res => {
         alert(res.data);
         if (res.status == 200){
             render('users');
@@ -96,7 +96,7 @@ function updateUser(id){
 
 function editUser(id){
     render('edituser').then(()=>{
-        axios.get(`${serverUrl}/users/${id}`).then(res => {
+        axios.get(`${serverUrl}/users/${id}`, authorize()).then(res => {
             document.querySelector('#name').value = res.data[0].name;
             document.querySelector('#email').value = res.data[0].email;
             document.querySelector('#phone').value = res.data[0].phone;

@@ -101,7 +101,7 @@ app.post('/reg', (req, res) => {
 });
 
 // bejelentkezett felhasználó adatainak lekérése
-app.get('/me/:id', (req, res) => {
+app.get('/me/:id', logincheck, (req, res) => {
    if (!req.params.id) {
      res.status(203).send('Hiányzó azonosító!');
      return;
@@ -124,7 +124,7 @@ app.get('/me/:id', (req, res) => {
 });
 
 // felhasználó módosítása
-app.patch('/users/:id', (req, res) => {
+app.patch('/users/:id', logincheck, (req, res) => {
   
   if (!req.params.id) {
     res.status(203).send('Hiányzó azonosító!');
@@ -154,83 +154,25 @@ app.patch('/users/:id', (req, res) => {
 
 //receptek lekérése
 
-app.get('/recipes', (req, res) =>{
-  pool.query(`SELECT catID, userID, title, description,time, additions, calory FROM recipes`, (err, results) =>{
-    if (err){
-      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+app.post('/upload/:userID', (req, res) => {
+  if (!req.params.userID) {
+    res.status(400).send('Hiányzó azonosító!');
+    return;
+  }
+
+pool.query(`INSERT INTO recipes VALUES ('${uuid.v4()}','${req.body.catID}', '${req.params.userID}', '${req.body.title}', '${req.body.description}', ${req.body.time}, '${req.body.additions}', ${req.body.calory})`, (err) => {
+    if (err) {
+      res.status(500).send('Hiba !');
       return;
     }
- 
-    res.status(200).send(results);
+
+    res.status(201).send('Sikeres felvétel!');
     return;
   });
 });
-
-/*
-// jelszó módosítás
-app.patch('/passmod/:id', logincheck, (req, res) => {
-  
-  if (!req.params.id) {
-    res.status(203).send('Hiányzó azonosító!');
-    return;
-  }
-
-  if (!req.body.oldpass || !req.body.newpass || !req.body.confirm) {
-    res.status(203).send('Hiányzó adatok!');
-    return;
-  }
-
-   // jelszavak ellenőrzése
-   if (req.body.newpass != req.body.confirm){
-    res.status(203).send('A megadott jelszavak nem egyeznek!');
-    return;
-  }
-  
-  // jelszó min kritériumoknak megfelelés
-  if (!req.body.newpass.match(passwdRegExp)){
-    res.status(203).send('A jelszó nem elég biztonságos!');
-    return;
-  }
-
-  // megnézzük, hogy jó-e a megadott jelenlegi jelszó
-  pool.query(`SELECT passwd FROM users WHERE ID='${req.params.id}'`, (err, results) => {
-    if (err){
-      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
-      return;
-    }
-
-    if (results.length == 0){
-      res.status(203).send('Hibás azonosító!');
-      return;
-    }
-
-    if (results[0].passwd != CryptoJS.SHA1(req.body.oldpass)){
-      res.status(203).send('A jelenlegi jelszó nem megfelelő!');
-      return;
-    }
-
-    pool.query(`UPDATE users SET passwd=SHA1('${req.body.newpass}') WHERE ID='${req.params.id}'`, (err, results) => {
-      if (err){
-        res.status(500).send('Hiba történt az adatbázis lekérés közben!');
-        return;
-      }
-  
-      if (results.affectedRows == 0){
-        res.status(203).send('Hibás azonosító!');
-        return;
-      }
-  
-      res.status(200).send('A jelszó módosítva!');
-      return;
-    });
-
-  });
-
-});
-*/
 
 // felhasználók listája (CSAK ADMIN)
-app.get('/users', (req, res) => {
+app.get('/users', admincheck, (req, res) => {
 
   pool.query(`SELECT ID, name, email, phone, role FROM users`, (err, results) => {
     if (err){
@@ -242,9 +184,8 @@ app.get('/users', (req, res) => {
   });
 });
 
-
 // felhasználó adatainak lekérése id alapján (CSAK ADMIN)
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', logincheck, (req, res) => {
 
   if (!req.params.id) {
      res.status(203).send('Hiányzó azonosító!');
@@ -269,7 +210,7 @@ app.get('/users/:id', (req, res) => {
  });
  
 // felhasználó törlése id alapján (CSAK ADMIN)
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', logincheck, (req, res) => {
   
   if (!req.params.id) {
     res.status(203).send('Hiányzó azonosító!');
@@ -414,5 +355,3 @@ app.listen(port, () => {
   //console.log(process.env) ;
   console.log(`Server listening on port ${port}...`);
 });
-
-// MIDDLEWARE functions

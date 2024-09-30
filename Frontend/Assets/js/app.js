@@ -79,4 +79,11 @@ function renderNavItems() {
     }
 }
 
+function authorize(){
+    let res = {
+         headers: { "Authorization": loggedUser[0].ID  }
+    }
+    return res;
+}
+
 renderNavItems();
