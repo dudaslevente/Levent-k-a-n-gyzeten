@@ -280,7 +280,7 @@ function admincheck(req, res, next){
 }
 
 // összes felhasználó lépésadatainak lekérdezése (CSAK ADMIN)
-app.get('/recipes', logincheck, (req, res) => {
+app.get('/recipes', (req, res) => {
   
   pool.query(`SELECT * FROM recipes`, (err, results) => {
     if (err){
@@ -294,7 +294,7 @@ app.get('/recipes', logincheck, (req, res) => {
 });
 
 // felhasználó lépésadatainak lekérdezése
-app.get('/recipes/:userID', logincheck, (req, res) => {
+app.get('/recipes/:userID', (req, res) => {
   if (!req.params.userID) {
     res.status(203).send('Hiányzó azonosító!');
     return;
