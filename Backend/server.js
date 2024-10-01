@@ -318,6 +318,7 @@ app.post('/description/:userID', logincheck, (req, res) => {
     res.status(203).send('Hiányzó azonosító!');
     return;
   }
+
 /*
   if (!req.body.date || !req.body.stepcount) {
     res.status(203).send('Hiányzó adatok!');
@@ -371,6 +372,25 @@ app.get('/recipes', (req, res) => {
       res.status(200).json(results); // Visszaadjuk a recepteket JSON formátumban
   });
 });
+// recept lekérése id alapján
+app.get('/recipes/:id', (req, res) => {
+  const recipeId = req.params.id;
+  
+  pool.query(`SELECT * FROM recipes WHERE ID='${recipeId}'`, (err, results) => {
+    if (err) {
+      res.status(500).send('Hiba történt az adatbázis lekérése közben!');
+      return;
+    }
+    
+    if (results.length === 0) {
+      res.status(404).send('Recept nem található!');
+      return;
+    }
+    
+    res.status(200).json(results[0]); // Visszaadjuk a receptet JSON formátumban
+  });
+});
+
 
 
 app.listen(port, () => {
