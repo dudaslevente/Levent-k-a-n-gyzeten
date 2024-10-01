@@ -18,7 +18,8 @@
           <div class="col-6 d-flex justify-content-end align-items-end flex-wrap btn-container">
             <a class="btn btn-sm btn-outline-secondary m-1 lgdOut" href="#" onclick="render('login')">Login</a>
             <a class="btn btn-sm btn-outline-secondary m-1 lgdOut" href="#" onclick="render('reg')">Sign up</a>
-          
+
+            <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('recipes')">Receptek</a>
             <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('profile')">Profile</a>
             <a class="btn btn-sm btn-outline-secondary m-1 lgdAdm d-none" href="#" onclick="render('users')">Users</a>
             <a class="btn btn-sm btn-outline-secondary m-1 lgdIn d-none" href="#" onclick="render('upload')">Upload</a>
@@ -28,26 +29,26 @@
           
         </div>
       </header>
-      
+      <!--
       <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
         <div class="container-fluid justify-content-center">
             <ul class="navbar-nav d-flex flex-row flex-nowrap">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="fetchRecipes('all')">Összes</a>
+                    <a class="nav-link" href="#" >Összes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="fetchRecipes('1')">Előétel</a>
+                    <a class="nav-link" href="#" >Előétel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="fetchRecipes('2')">Főétel</a>
+                    <a class="nav-link" href="#" >Főétel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="fetchRecipes('3')">Deszert</a>
+                    <a class="nav-link" href="#" >Deszert</a>
                 </li>
             </ul>
         </div>
     </nav>
-    
+    -->
           <main>
 
           </main>
@@ -60,7 +61,7 @@
     <script src="Assets/js/moment.js"></script>
     <script src="Assets/js/app.js"></script>
 
-
+    <script src="Controller/leirad.js"></script>
     <script src="Controller/upload.js"></script>
     <script src="Controller/rec.js"></script>
     <script src="Controller/userCtrl.js"></script>
