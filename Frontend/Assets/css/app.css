@@ -31,3 +31,27 @@ footer{
 body{
   min-width:500px;
 }
+.kep{
+  background-size: cover;
+  background-position: center;
+  width: 300px;
+  padding-right: -10%;
+  padding-left: -10%;
+}
+
+.card {
+  border: none; /* Eltávolítja a kártya szélét */
+  overflow: hidden; /* Megakadályozza, hogy a kép kicsússzon a kártyából */
+}
+
+.card-img-top {
+  width: 100%; /* A kép szélessége 100% legyen */
+  height: auto; /* Az arány megőrzése érdekében */
+  display: block; /* Blokk szintű elem, így nincsenek margók */
+  object-fit: cover; /* A kép méretezésének módosítása, hogy kitöltse a kártyát */
+}
+.card-container {
+  display: flex; /* Ha egymás mellett szeretnéd látni a kártyákat */
+  flex-wrap: wrap; /* A kártyák átcsúsznak a következő sorba, ha nem férnek el */
+  justify-content: space-around; /* A kártyák eloszlása a sorban */
+}
