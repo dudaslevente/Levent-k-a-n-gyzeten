@@ -1,3 +1,5 @@
+let recipes = [];
+
 function login(){
     let user = {
         email: document.querySelector('#email').value,
@@ -155,7 +157,7 @@ function renderUsers(users){
 }
 
 function getUserStats(){
-    axios.get(`${serverUrl}/recipes/${loggedUser[0].ID}`, authorize()).then(res => {
+    axios.get(`${serverUrl}/statistics/${loggedUser[0].ID}`).then(res => {
         recipes = res.data;
     });
 
@@ -181,7 +183,7 @@ function getUserStats(){
 
 function getAdminStats(){
     let alldata = [];
-    axios.get(`${serverUrl}/recipes`, authorize()).then(res => {
+    axios.get(`${serverUrl}/statistics`).then(res => {
         alldata = res.data;
         alldata.sort((a, b) => a.userID.localeCompare(b.userID)); 
 

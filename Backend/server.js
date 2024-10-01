@@ -280,7 +280,7 @@ function admincheck(req, res, next){
 }
 
 // összes felhasználó lépésadatainak lekérdezése (CSAK ADMIN)
-app.get('/recipes', (req, res) => {
+app.get('/statistics', (req, res) => {
   
   pool.query(`SELECT * FROM recipes`, (err, results) => {
     if (err){
@@ -294,7 +294,7 @@ app.get('/recipes', (req, res) => {
 });
 
 // felhasználó lépésadatainak lekérdezése
-app.get('/recipes/:userID', (req, res) => {
+app.get('/statistics/:userID', (req, res) => {
   if (!req.params.userID) {
     res.status(203).send('Hiányzó azonosító!');
     return;
@@ -311,6 +311,7 @@ app.get('/recipes/:userID', (req, res) => {
   });
 });
 
+/*
 // felhasználó lépésadatainak felvitele
 app.post('/description/:userID', logincheck, (req, res) => {
 
@@ -319,12 +320,11 @@ app.post('/description/:userID', logincheck, (req, res) => {
     return;
   }
 
-/*
+
   if (!req.body.date || !req.body.stepcount) {
     res.status(203).send('Hiányzó adatok!');
     return;
   }
-*/
 
   pool.query(`SELECT ID FROM recepies WHERE userID='${req.params.userID}' AND date='${date}'`, (err ,results) => {
     if (err){
@@ -360,7 +360,7 @@ app.post('/description/:userID', logincheck, (req, res) => {
   });
 
 });
-
+*/
 
 // Recepteket lekérdező végpont
 app.get('/recipes', (req, res) => {
@@ -372,6 +372,7 @@ app.get('/recipes', (req, res) => {
       res.status(200).json(results); // Visszaadjuk a recepteket JSON formátumban
   });
 });
+
 // recept lekérése id alapján
 app.get('/recipes/:id', (req, res) => {
   const recipeId = req.params.id;
