@@ -68,6 +68,7 @@ function getUsers(){
     axios.get(`${serverUrl}/users`, authorize()).then(res => {
         renderUsers(res.data);
     });
+    
 }
 
 function deleteUser(id){

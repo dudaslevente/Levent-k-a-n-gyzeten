@@ -1,3 +1,4 @@
+let buttonValue;
 function createRecipeCards(recipes) {
     const cardContainer = document.querySelector('.card-container');
     if (!cardContainer) {
@@ -32,10 +33,16 @@ function createRecipeCards(recipes) {
         const button = document.createElement('a');
         button.href = '#';
         button.className = 'btn btn-primary';
+        button.value = recipe.ID; 
         button.innerText = 'Részletes Leírás';
-        button.onclick = function () {
-            fetchRecipeDetails(recipe.id);
+
+        button.onclick = function() {
+            buttonValue = button.value; // Átadjuk a button.value értékét a buttonValue változónak
+            console.log("A gomb értéke:", buttonValue); // Ellenőrzés, hogy helyesen működik-e
+            //render('description'); // Átadjuk a render függvénynek
+            createRecipeDetail(recipes,buttonValue);
         };
+
 
         cardBody.appendChild(title);
         cardBody.appendChild(time);
@@ -59,5 +66,6 @@ function fetchRecipes() {
         });
 }
 
-// Call the fetchRecipes function to fetch and display the recipes
-fetchRecipes('all');
+
+
+

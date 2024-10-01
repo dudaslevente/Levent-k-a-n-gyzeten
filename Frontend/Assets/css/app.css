@@ -55,3 +55,6 @@ body{
   flex-wrap: wrap; /* A kártyák átcsúsznak a következő sorba, ha nem férnek el */
   justify-content: space-around; /* A kártyák eloszlása a sorban */
 }
+.kepR img {
+  width: 100%
+}

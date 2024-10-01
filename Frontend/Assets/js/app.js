@@ -22,6 +22,16 @@ async function render(view){
             getUsers();
             break;
         }
+        case 'recipes': {
+            fetchRecipes()
+            break;
+        }
+        case 'description': {
+            fetchRecipes1(buttonValue);
+            createRecipeDetail();
+            
+            break;
+        }
         case 'statistics': {
             getUserStats();
             getAdminStats();
