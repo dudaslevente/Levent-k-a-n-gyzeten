@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/reg', (req, res) => {
 
     // kötelező adatok ellenőrzése
-    if (!req.body.name || !req.body.email || !req.body.passwd || !req.body.confirm || req.body.phone ){
+    if (!req.body.name || !req.body.email || !req.body.passwd || !req.body.confirm || !req.body.phone ){
        res.status(203).send('Nem adtál meg minden kötelező adatot!');
        return;
     }
@@ -280,7 +280,7 @@ function admincheck(req, res, next){
 }
 
 // összes felhasználó recepteinek lekérdezése (CSAK ADMIN)
-app.get('/statistics', (req, res) => {
+app.get('/recipes', (req, res) => {
   
   pool.query(`SELECT * FROM recipes`, (err, results) => {
     if (err){
@@ -294,7 +294,7 @@ app.get('/statistics', (req, res) => {
 });
 
 // felhasználó receptek lekérdezése
-app.get('/statistics/:userID', (req, res) => {
+app.get('/recipes/:userID', (req, res) => {
   if (!req.params.userID) {
     res.status(203).send('Hiányzó azonosító!');
     return;

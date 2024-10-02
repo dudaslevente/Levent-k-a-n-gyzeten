@@ -30,6 +30,7 @@ footer{
 
 body{
   min-width:500px;
+  background-color:  rgb(26, 53, 53);
 }
 .kep{
   background-size: cover;

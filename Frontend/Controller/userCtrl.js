@@ -159,67 +159,7 @@ function getStatistics(){
     
 }
 
-/*
-function getUserStats(){
-    let alldata = [];
-    axios.get(`${serverUrl}/steps`, authorize()).then(res => {
-        alldata = res.data;
-        alldata.sort((a, b) => a.userID.localeCompare(b.userID)); 
 
-        let totalValue = 0;
-        let userCount = 0;
-
-        let userTotal = 0;
-        let userDataCount = 0;
-        
-        let userAvg = [];
-        let avgValue = 0;
-        let minValue = Number.MAX_VALUE;
-        let maxValue = 0;
-        let userID = alldata[0].userID;
-
-        alldata.forEach(item => {
-
-            if (userID != item.userID){
-                userAvg.push(Math.round(userTotal / userDataCount));
-                console.log(userTotal)
-                userID = item.userID;
-                userTotal = 0;
-                userDataCount = 0;
-                userCount++;
-            }
-
-            totalValue += item.count;
-
-            userTotal += item.count;
-            userDataCount++;
-
-            if (item.count > maxValue){
-                maxValue = item.count;
-            }
-            if (item.count < minValue){
-                minValue = item.count;
-            }
-            
-        });
-
-        userAvg.push(Math.round(userTotal / userDataCount));
-        userCount++;
-
-        let sumAvg = 0;
-        userAvg.forEach(item =>{
-            sumAvg += item;
-        });
-
-        avgValue = Math.round(sumAvg / userCount);
-
-        document.querySelector('#adm_total').innerHTML = totalValue;
-        document.querySelector('#adm_avg').innerHTML = avgValue;
-        document.querySelector('#adm_min').innerHTML = minValue;
-        document.querySelector('#adm_max').innerHTML = maxValue;
-    });
-}
-*/
 
 function updatePassword(){
     
