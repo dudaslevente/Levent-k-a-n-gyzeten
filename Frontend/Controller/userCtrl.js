@@ -1,5 +1,3 @@
-let recipes = [];
-
 function login(){
     let user = {
         email: document.querySelector('#email').value,
@@ -157,34 +155,14 @@ function renderUsers(users){
     total.innerHTML = users.length;
 }
 
-function getUserStats(){
-    axios.get(`${serverUrl}/statistics/${loggedUser[0].ID}`).then(res => {
-        recipes = res.data;
-    });
-
-    let totalValue = 0;
-    let mostCalory = 0;
-    let leastCalory = 0;
-
-
-    recipes.forEach(item => {
-        totalValue += item.count;
-        if (item.count > mostCalory){
-            mostCalory = item.count;
-        }
-        if (item.count < leastCalory){
-            leastCalory = item.count;
-        }
-    });
-
-    document.querySelector('#total').innerHTML = totalValue;
-    document.querySelector('#most').innerHTML = mostCalory;
-    document.querySelector('#least').innerHTML = leastCalory;
+function getStatistics(){
+    
 }
 
-function getAdminStats(){
+/*
+function getUserStats(){
     let alldata = [];
-    axios.get(`${serverUrl}/statistics`).then(res => {
+    axios.get(`${serverUrl}/steps`, authorize()).then(res => {
         alldata = res.data;
         alldata.sort((a, b) => a.userID.localeCompare(b.userID)); 
 
@@ -193,12 +171,17 @@ function getAdminStats(){
 
         let userTotal = 0;
         let userDataCount = 0;
+        
+        let userAvg = [];
+        let avgValue = 0;
+        let minValue = Number.MAX_VALUE;
         let maxValue = 0;
         let userID = alldata[0].userID;
 
         alldata.forEach(item => {
 
             if (userID != item.userID){
+                userAvg.push(Math.round(userTotal / userDataCount));
                 console.log(userTotal)
                 userID = item.userID;
                 userTotal = 0;
@@ -220,10 +203,23 @@ function getAdminStats(){
             
         });
 
+        userAvg.push(Math.round(userTotal / userDataCount));
+        userCount++;
+
+        let sumAvg = 0;
+        userAvg.forEach(item =>{
+            sumAvg += item;
+        });
+
+        avgValue = Math.round(sumAvg / userCount);
+
         document.querySelector('#adm_total').innerHTML = totalValue;
+        document.querySelector('#adm_avg').innerHTML = avgValue;
+        document.querySelector('#adm_min').innerHTML = minValue;
         document.querySelector('#adm_max').innerHTML = maxValue;
     });
 }
+*/
 
 function updatePassword(){
     

@@ -32,11 +32,12 @@ async function render(view){
             
             break;
         }
+        /*
         case 'statistics': {
-            getUserStats();
-            getAdminStats();
+            getStatistics();
             break;
         }
+        */
     }
 }
 
