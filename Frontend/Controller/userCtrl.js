@@ -224,3 +224,22 @@ function getAdminStats(){
         document.querySelector('#adm_max').innerHTML = maxValue;
     });
 }
+
+function updatePassword(){
+    
+    let data = {
+        oldpass: document.querySelector('#oldpass').value,
+        newpass: document.querySelector('#newpass').value,
+        confirm: document.querySelector('#confirm').value
+    }
+
+    axios.patch(`${serverUrl}/password/${loggedUser[0].ID}`, data).then(res => {
+        alert(res.data);
+
+        if (res.status == 200){
+            document.querySelector('#oldpass').value = "";
+            document.querySelector('#newpass').value = "";
+            document.querySelector('#confirm').value = "";
+        }
+    });
+}

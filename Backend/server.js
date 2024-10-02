@@ -311,6 +311,66 @@ app.get('/statistics/:userID', (req, res) => {
   });
 });
 
+app.patch('/password/:id', (req, res) => {
+  
+  if (!req.params.id) {
+    res.status(203).send('Hiányzó azonosító!');
+    return;
+  }
+
+  if (!req.body.oldpass || !req.body.newpass || !req.body.confirm) {
+    res.status(203).send('Hiányzó adatok!');
+    return;
+  }
+
+   // jelszavak ellenőrzése
+   if (req.body.newpass != req.body.confirm){
+    res.status(203).send('A megadott jelszavak nem egyeznek!');
+    return;
+  }
+  
+  // jelszó min kritériumoknak megfelelés
+  if (!req.body.newpass.match(passwdRegExp)){
+    res.status(203).send('A jelszó nem elég biztonságos!');
+    return;
+  }
+
+  // megnézzük, hogy jó-e a megadott jelenlegi jelszó
+  pool.query(`SELECT passwd FROM users WHERE ID='${req.params.id}'`, (err, results) => {
+    if (err){
+      res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+      return;
+    }
+
+    if (results.length == 0){
+      res.status(203).send('Hibás azonosító!');
+      return;
+    }
+
+    if (results[0].passwd != CryptoJS.SHA1(req.body.oldpass)){
+      res.status(203).send('A jelenlegi jelszó nem megfelelő!');
+      return;
+    }
+
+    pool.query(`UPDATE users SET passwd=SHA1('${req.body.newpass}') WHERE ID='${req.params.id}'`, (err, results) => {
+      if (err){
+        res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+        return;
+      }
+  
+      if (results.affectedRows == 0){
+        res.status(203).send('Hibás azonosító!');
+        return;
+      }
+  
+      res.status(200).send('A jelszó módosítva!');
+      return;
+    });
+
+  });
+
+});
+
 /*
 // felhasználó lépésadatainak felvitele
 app.post('/description/:userID', logincheck, (req, res) => {
