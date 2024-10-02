@@ -27,8 +27,8 @@ async function render(view){
             break;
         }
         case 'description': {
-            fetchRecipes1(buttonValue);
-            createRecipeDetail();
+           // fetchRecipes1(buttonValue);
+           // createRecipeDetail();
             
             break;
         }

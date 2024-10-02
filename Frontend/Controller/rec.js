@@ -37,10 +37,15 @@ function createRecipeCards(recipes) {
         button.innerText = 'Részletes Leírás';
 
         button.onclick = function() {
-            buttonValue = button.value; // Átadjuk a button.value értékét a buttonValue változónak
-            console.log("A gomb értéke:", buttonValue); // Ellenőrzés, hogy helyesen működik-e
-            //render('description'); // Átadjuk a render függvénynek
+           buttonValue = button.value; // Átadjuk a button.value értékét a buttonValue változónak
+       //     console.log("A gomb értéke:", buttonValue); // Ellenőrzés, hogy helyesen működik-e
+         render('description').then(()=>
+         {
             createRecipeDetail(recipes,buttonValue);
+         }); // Átadjuk a render függvénynek
+        
+        
+       
         };
 
 

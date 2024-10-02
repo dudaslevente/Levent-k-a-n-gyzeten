@@ -36,15 +36,15 @@ function createRecipeDetail(recipes,buttonValue) {
             console.log('egesz jo 1');
             const liI = document.createElement('li');
             liI.innerText = `Idő: ${recipe.time} perc`;
-            liH.className ="list-group-item ";
+            liI.className ="list-group-item ";
             ido.appendChild(liI);
 
             const liK = document.createElement('li');
             liK.innerText = `${recipe.calory} cal`;
-            liH.className ="list-group-item ";
+            liK.className ="list-group-item ";
             kaloria.appendChild(liK);
 
-            const Leiras = recipe.descripton.split('.');
+            const Leiras = recipe.description.split('.');
             Leiras.forEach(item => {
                 const p = document.createElement('p');
                 p.className =" ";
